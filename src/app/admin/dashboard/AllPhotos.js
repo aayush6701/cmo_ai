@@ -32,11 +32,11 @@ const AllPhotos = () => {
           {/* Create Folder Card */}
           <div
             onClick={() => setIsOpen(true)}
-            className="flex justify-start items-end w-full h-[400px] border border-[#686868] rounded-[25px] p-4 cursor-pointer hover:shadow-lg transition"
+            className="flex justify-start items-end w-full h-[400px] border border-[#686868] rounded-[25px] p-4 cursor-pointer hover:shadow-lg transition mt-4"
           >
             <div className="flex flex-col items-start text-left pl-4">
-              <img src="/Create_F.png" alt="Create Folder" className="w-[34px] h-[34px] mb-1" />
-              <p className="text-[#170645] text-[18px] font-medium mt-4 mb-1">Create Folder</p>
+              <img src="/create_F.png" alt="Create Folder" className="w-[34px] h-[34px] mb-1" />
+              <p className="text-[#170645] text-[18px] font-medium mt-4 mb-1">Create Event</p>
               <p className="text-[#686868] text-[14px] mt-1 mb-6">Example: New Folder</p>
             </div>
           </div>
@@ -47,7 +47,7 @@ const AllPhotos = () => {
           {/* Album Cards */}
           {albums.map((album, i) => (
             <div key={i} className="p-4 rounded-lg cursor-pointer" onClick={() => setSelectedAlbum(album)}>
-              <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[404px] bg-gray-200 rounded-lg overflow-hidden">
+              <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[404px] rounded-[25px] overflow-hidden">
                 <img src={album.cover} alt={album.name} className="w-full h-full object-cover" />
               </div>
               <p className="text-start font-bold text-[18px] text-black mt-2">{album.name}</p>
