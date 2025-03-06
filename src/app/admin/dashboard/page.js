@@ -13,7 +13,7 @@ import AllPhotos from "./AllPhotos";
 
 function App() {
   const [search, setSearch] = useState("");
-  const [currentTab, setCurrentTab] = useState("All Photos");
+  const [currentTab, setCurrentTab] = useState("All Events");
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
@@ -390,7 +390,7 @@ function App() {
         {/* Tab Navigation */}
         <div className="flex flex-col sm:flex-row sm:items-center border-b pb-2 gap-4">
           <div className="flex space-x-4 sm:space-x-8 overflow-x-auto pb-2 sm:pb-0">
-            {["All Photos", "All Users", "Profile Update", "Districts", "Department"].map((tab) => (
+            {["All Events", "All Users", "Profile Update", "Districts", "Department"].map((tab) => (
               <button
                 key={tab}
                 className={`px-3 sm:px-4 py-2 font-semibold text-[#170645] whitespace-nowrap ${currentTab === tab ? "border-b-2 border-[#170645] font-bold" : "font-light"
@@ -402,7 +402,7 @@ function App() {
             ))}
           </div>
 
-          {currentTab === "All Photos" && (
+          {currentTab === "All Events" && (
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:ml-auto">
               <div className="flex items-center gap-2">
                 <input
@@ -462,7 +462,7 @@ function App() {
             ))}
           </div>
         )} */}
-        {currentTab === "All Photos" && <AllPhotos />}
+        {currentTab === "All Events" && <AllPhotos />}
         {/* All Users Tab Content */}
         {/* Show UsersTable when the "All Users" tab is active */}
       {currentTab === "All Users" && (
