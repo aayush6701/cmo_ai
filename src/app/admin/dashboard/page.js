@@ -4,6 +4,13 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X, ChevronDown, BarChart2, Users, Image, User } from 'lucide-react';
 import './ToggleSwitch.css';
 import CustomBarChart from './CustomBarChart';
+import ModalPopup from "./ModalPopup";
+import DistrictsTab from "./DistrictsTab";
+import DepartmentsTab from "./DepartmentsTab";
+import Profile from "./Profile"; 
+import UsersTable from "./UsersTable";
+import AllPhotos from "./AllPhotos"; 
+
 function App() {
   const [search, setSearch] = useState("");
   const [currentTab, setCurrentTab] = useState("All Photos");
@@ -11,6 +18,8 @@ function App() {
   const [selectedImages, setSelectedImages] = useState([]);
   const [showFilter, setShowFilter] = useState(false);
   const [mobileMenu, setMobileMenu] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  
 
   const [users, setUsers] = useState([
     { id: 1, name: "Sneha Roy", district: "Durg", mobile: "9235468505", email: "sneharoy17@gmail.com", status: true },
@@ -21,8 +30,9 @@ function App() {
     { id: 6, name: "Pratik Raj", district: "Bilaspur", mobile: "9235468505", email: "pratikraj11@gmail.com", status: true },
     { id: 7, name: "Aditi Shign", district: "Dhamtari", mobile: "9235468505", email: "aditishign152@gmail.com", status: true },
   ]);
-
+  
   const eventNames = ["Rajyotsava", "Mahtarivandan Yojna", "Mor Awas Mor Adhikar"];
+
   
   const Switch = ({ checked, onChange }) => {
     return (
@@ -32,7 +42,7 @@ function App() {
       </label>
     );
   };
-  
+
   const handleSelectAll = () => {
     if (selectedImages.length === eventNames.length) {
       setSelectedImages([]); // Deselect all
@@ -48,21 +58,21 @@ function App() {
     }
     alert(`Downloading ${selectedImages.length} images.`);
   };
-  
+
   const filteredUsers = users.filter(user =>
     user.name.toLowerCase().includes(search.toLowerCase()) ||
     user.district.toLowerCase().includes(search.toLowerCase()) ||
     user.mobile.includes(search) ||
     user.email.toLowerCase().includes(search.toLowerCase())
   );
-  
+
   const stats = [
     { label: "Total User", count: "149", image: "/tuser.png", bg: "#A889FC80" },
     { label: "Total Download", count: "378", image: "/tdownload.png", bg: "#A1C181" },
     { label: "Total Image", count: "72", image: "/timage.png", bg: "#90C0F6" },
     { label: "Total Event", count: "25", image: "/tevent.png", bg: "#F6CB90" },
   ];
-  
+
   const toggleStatus = (id) => {
     setUsers((users) =>
       users.map((user) =>
@@ -70,6 +80,7 @@ function App() {
       )
     );
   };
+
 
   // Sample data for the chart
   const chartData = [
@@ -82,7 +93,7 @@ function App() {
     { day: "7", value: 100 },
   ];
 
-  
+
 
   return (
     <div className="min-h-screen bg-white">
@@ -96,17 +107,17 @@ function App() {
               alt="CG Logo"
               className="w-[60px] h-[60px] object-contain"
             />
-            <button 
+            <button
               className="ml-4 md:hidden"
               onClick={() => setMobileMenu(!mobileMenu)}
             >
               {mobileMenu ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
-          
+
           {/* Search Bar - Hidden on Mobile */}
           <div className="hidden md:flex items-center border border-gray-200 rounded-full overflow-hidden bg-gray-100 w-full max-w-[1150px] mx-4 h-[45px] px-3">
-            {/* Filter Button */}  
+            {/* Filter Button */}
             <button
               onClick={() => setShowFilter(true)}
               className="flex items-center gap-2 px-4 py-2 text-gray-600"
@@ -124,7 +135,7 @@ function App() {
               onChange={(e) => setSearch(e.target.value)}
               className="w-full flex-1 text-sm outline-none bg-transparent p-4"
             />
-            
+
             {/* Clear button */}
             {search && (
               <button className="text-gray-600" onClick={() => setSearch("")}>✕</button>
@@ -138,42 +149,42 @@ function App() {
               </svg>
             </button>
           </div>
-          
-          
-        {/* Search Now Button & Profile */}
-        <div className="flex items-center gap-4">
-          {/* Search Now Button */}
-          <button className="bg-[#120052] text-yellow-400 px-6 py-2 rounded-full font-semibold">
-            Search Now
+
+
+          {/* Search Now Button & Profile */}
+          <div className="flex items-center gap-4">
+            {/* Search Now Button */}
+            <button className="bg-[#120052] text-yellow-400 px-6 py-2 rounded-full font-semibold">
+              Search Now
+            </button>
+            {/* Profile Image */}
+            <img
+              src="/pro.png"
+              alt="Profile"
+              className="w-10 h-10 rounded-full border border-gray-300 object-cover"
+            />
+          </div>
+
+          {/* Mobile Search Button */}
+          <button className="md:hidden text-gray-600">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
           </button>
-          {/* Profile Image */}
-          <img
-            src="/pro.png"
-            alt="Profile"
-            className="w-10 h-10 rounded-full border border-gray-300 object-cover"
-          />
+
         </div>
 
-        {/* Mobile Search Button */}
-        <button className="md:hidden text-gray-600">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="20"
-            height="20"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <circle cx="11" cy="11" r="8"></circle>
-            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-          </svg>
-        </button>
-      
-        </div>
-        
         {/* Mobile Search Bar - Only visible when menu is open */}
         {mobileMenu && (
           <div className="mt-4 md:hidden">
@@ -227,7 +238,7 @@ function App() {
                 Clear All
               </button>
             </div>
-            
+
             {/* Event Section */}
             <div>
               <p className="text-lg font-semibold mb-2 text-black">Event</p>
@@ -331,14 +342,14 @@ function App() {
           <p className="text-base sm:text-lg mt-2 mb-4">Here's Everything You Need To Know To Get Started.</p>
           <p className="text-lg sm:text-xl font-semibold mt-6">Rajyotsava 2024 New Raipur</p>
         </div>
-        <img 
-          src="/CM.png" 
-          alt="admin" 
-          className="w-[200px] h-[220px] sm:w-[280px] sm:h-[300px] md:w-[345px] md:h-[365px] drop-shadow-lg transition-transform duration-300 hover:scale-105 object-cover" 
+        <img
+          src="/CM.png"
+          alt="admin"
+          className="w-[200px] h-[220px] sm:w-[280px] sm:h-[300px] md:w-[345px] md:h-[365px] drop-shadow-lg transition-transform duration-300 hover:scale-105 object-cover"
           style={{
             WebkitMaskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)",
             maskImage: "linear-gradient(to bottom, rgba(0,0,0,1) 60%, rgba(0,0,0,0) 100%)",
-          }} 
+          }}
         />
       </div>
 
@@ -347,18 +358,18 @@ function App() {
         {/* Stats Section */}
         <div className="flex flex-col flex-1">
           <h2 className="text-2xl font-semibold text-[#170645] mb-4 text-center lg:text-left">Overview</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 mx-auto mt-[50px]">
             {stats.map((item, index) => (
               <div
                 key={index}
                 className="w-full h-full max-w-[200px] h-[200px] aspect-square mx-auto rounded-[25px] flex flex-col items-center justify-center shadow-md transition-all duration-300 hover:border-2 hover:border-[#170645]"
                 style={{ backgroundColor: item.bg }}
               >
-                <div className="w-8 h-8 mb-2 flex items-center justify-center">
-                <img src={item.image} alt="Stat Icon" className="w-[20px] h-[20px]" />  
+                <div className="w-8 h-8 mb-2 mt-2 flex items-center justify-center">
+                  <img src={item.image} alt="Stat Icon" className="w-[20px] h-[20px]" />
                 </div>
                 <p className="text-lg font-bold text-[#170645]">{item.count}</p>
-                <h3 className="text-lg font-semibold text-[#170645]">{item.label}</h3>
+                <h3 className="text-md mb-2 ml-4 mr-4 font-normal text-[#170645]">{item.label}</h3>
               </div>
             ))}
           </div>
@@ -379,31 +390,30 @@ function App() {
         {/* Tab Navigation */}
         <div className="flex flex-col sm:flex-row sm:items-center border-b pb-2 gap-4">
           <div className="flex space-x-4 sm:space-x-8 overflow-x-auto pb-2 sm:pb-0">
-            {["All Photos", "All Users", "Profile Update"].map((tab) => (
+            {["All Photos", "All Users", "Profile Update", "Districts", "Department"].map((tab) => (
               <button
                 key={tab}
-                className={`px-3 sm:px-4 py-2 font-semibold text-[#170645] whitespace-nowrap ${
-                  currentTab === tab ? "border-b-2 border-[#170645] font-bold" : "font-light"
-                }`}
+                className={`px-3 sm:px-4 py-2 font-semibold text-[#170645] whitespace-nowrap ${currentTab === tab ? "border-b-2 border-[#170645] font-bold" : "font-light"
+                  }`}
                 onClick={() => setCurrentTab(tab)}
               >
                 {tab}
               </button>
             ))}
           </div>
-          
+
           {currentTab === "All Photos" && (
             <div className="flex flex-col sm:flex-row sm:items-center gap-4 sm:ml-auto">
               <div className="flex items-center gap-2">
-                <input 
-                  type="checkbox" 
-                  id="selectAll" 
-                  className="w-4 h-4 cursor-pointer" 
-                  onChange={handleSelectAll} 
+                <input
+                  type="checkbox"
+                  id="selectAll"
+                  className="w-4 h-4 cursor-pointer"
+                  onChange={handleSelectAll}
                 />
                 <label htmlFor="selectAll" className="text-sm cursor-pointer text-[#686868]">Select All</label>
               </div>
-              <button 
+              <button
                 className="bg-[#170645] text-[#FFE100] w-full sm:w-[174px] h-[40px] sm:h-[54px] rounded-lg font-normal"
                 onClick={handleDownload}
               >
@@ -414,101 +424,67 @@ function App() {
         </div>
 
         {/* All Photos Tab Content */}
-        {currentTab === "All Photos" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-4">
+        {/* {currentTab === "All Photos" && (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-4"> */}
             {/* Create Folder Card */}
-            <div className="flex ustify-start items-end w-full h-[400px] mt-4 sm:h-[400px] md:h-[400px] lg:h-[404px] border border-[#686868] rounded-[25px] p-4">
+            {/* <div onClick={() => setIsOpen(true)} className="flex justify-start items-end w-full h-[400px] mt-4 sm:h-[400px] md:h-[400px] lg:h-[404px] border border-[#686868] rounded-[25px] p-4">
               <div className="flex flex-col items-start text-left pl-4">
                 <img src="/create_F.png" alt="Create Folder" className="w-[34px] h-[34px] mr-[70px] mb-1" />
                 <p className="text-[#170645] text-[18px] font-medium mt-4 mb-1">Create Folder</p>
                 <p className="text-[#686868] text-[14px] mt-1 mb-6">Example: New Folder</p>
               </div>
-            </div>
-            
+              <ModalPopup isOpen={isOpen} setIsOpen={setIsOpen} />
+            </div> */}
+
             {/* Event Cards */}
-            {eventNames.map((event, i) => (
+            {/* {eventNames.map((event, i) => (
               <div key={i} className="p-4 rounded-lg">
                 <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[404px] bg-gray-200 rounded-lg overflow-hidden">
-                  <img 
+                  <img
                     src="/F4.png"
-                    alt="Gallery Item" 
+                    alt="Gallery Item"
                     className="w-full h-full object-cover"
                   />
-                </div>
-                <p className="text-start font-bold text-[18px] text-black mt-2">{event}</p>
+                </div> */}
+                {/* <p className="text-start font-bold text-[18px] text-black mt-2">{event}</p>
                 <div className="flex justify-start space-x-4 mt-1 w-full">
                   <button className=" pt-2 rounded-full hover:bg-gray-100">
-                  <img src="/Group 210.png" alt="Share" className="w-[30px] h-[30px]" />
+                    <img src="/Group 210.png" alt="Share" className="w-[30px] h-[30px]" />
                   </button>
                   <button className="pt-2 rounded-full hover:bg-gray-100">
-                  <img src="/Group 211.png" alt="Share" className="w-[30px] h-[30px]" />
+                    <img src="/Group 211.png" alt="Share" className="w-[30px] h-[30px]" />
                   </button>
                   <button className="pt-2 rounded-full hover:bg-gray-100">
-                  <img src="/Group 212.png" alt="Share" className="w-[30px] h-[30px]" />
+                    <img src="/Group 212.png" alt="Share" className="w-[30px] h-[30px]" />
                   </button>
                 </div>
               </div>
             ))}
           </div>
-        )}
-
+        )} */}
+        {currentTab === "All Photos" && <AllPhotos />}
         {/* All Users Tab Content */}
-        {currentTab === "All Users" && (
-          <div className="mt-4 overflow-x-auto">
-            <table className="w-full border-collapse">
-              <thead>
-                <tr className="bg-[#D9D9D9] text-center text-[#170645]">
-                  <th className="p-2 border">No.</th>
-                  <th className="p-2 border">Full Name</th>
-                  <th className="p-2 border">District</th>
-                  <th className="p-2 border">Mobile No.</th>
-                  <th className="p-2 border">Email Id</th>
-                  <th className="p-2 border">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user, index) => (
-                  <tr key={user.id} className="text-[#170645] text-center border-b">
-                    <td className="p-2">{index + 1}</td>
-                    <td className="p-2">{user.name}</td>
-                    <td className="p-2">{user.district}</td>
-                    <td className="p-2">{user.mobile}</td>
-                    <td className="p-2 max-w-[150px] truncate">{user.email}</td>
-                    <td className="p-2 text-center">
-                      <Switch checked={user.status} onChange={() => toggleStatus(user.id)} />
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+        {/* Show UsersTable when the "All Users" tab is active */}
+      {currentTab === "All Users" && (
+        <UsersTable users={users} toggleStatus={toggleStatus} />
+      )}
+
 
         {/* Profile Update Tab Content */}
-        {currentTab === "Profile Update" && (
-          <div className="mt-4 p-6 rounded-lg max-w-md mx-auto text-center">
-            <h2 className="text-2xl font-bold text-[#170645]">Profile Update</h2>
-            <p className="text-[#170645] mb-4">Update Below Detail</p>
-            <div className="space-y-4">
-              <input
-                type="text"
-                placeholder="Enter Name"
-                className="w-full p-3 border rounded-full text-[#170645] focus:outline-none"
-              />
-              <input
-                type="text"
-                placeholder="Contact"
-                className="w-full p-3 border rounded-full focus:outline-none text-[#170645]"
-              />
-              <select className="w-full p-3 border text-[#170645] rounded-full focus:outline-none">
-                <option>Raipur</option>
-                <option>Bhilai</option>
-                <option>Durg</option>
-              </select>
-              <button className="w-full p-3 bg-[#170645] text-[#FFE100] rounded-full font-semibold">Update</button>
-            </div>
+        {currentTab === "Profile Update" && <Profile />}
+          
+          
+
+        {/* Districts Tab Content */}
+        {currentTab === "Districts" && (
+          <div >
+            {/* District Name Input and Add Button */}
+            <DistrictsTab />
           </div>
         )}
+
+        {currentTab === "Department" && <DepartmentsTab />}
+
       </div>
     </div>
   );
