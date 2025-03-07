@@ -423,45 +423,7 @@ function App() {
           )}
         </div>
 
-        {/* All Photos Tab Content */}
-        {/* {currentTab === "All Photos" && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6 mt-4"> */}
-            {/* Create Folder Card */}
-            {/* <div onClick={() => setIsOpen(true)} className="flex justify-start items-end w-full h-[400px] mt-4 sm:h-[400px] md:h-[400px] lg:h-[404px] border border-[#686868] rounded-[25px] p-4">
-              <div className="flex flex-col items-start text-left pl-4">
-                <img src="/create_F.png" alt="Create Folder" className="w-[34px] h-[34px] mr-[70px] mb-1" />
-                <p className="text-[#170645] text-[18px] font-medium mt-4 mb-1">Create Folder</p>
-                <p className="text-[#686868] text-[14px] mt-1 mb-6">Example: New Folder</p>
-              </div>
-              <ModalPopup isOpen={isOpen} setIsOpen={setIsOpen} />
-            </div> */}
-
-            {/* Event Cards */}
-            {/* {eventNames.map((event, i) => (
-              <div key={i} className="p-4 rounded-lg">
-                <div className="w-full h-[250px] sm:h-[300px] md:h-[350px] lg:h-[404px] bg-gray-200 rounded-lg overflow-hidden">
-                  <img
-                    src="/F4.png"
-                    alt="Gallery Item"
-                    className="w-full h-full object-cover"
-                  />
-                </div> */}
-                {/* <p className="text-start font-bold text-[18px] text-black mt-2">{event}</p>
-                <div className="flex justify-start space-x-4 mt-1 w-full">
-                  <button className=" pt-2 rounded-full hover:bg-gray-100">
-                    <img src="/Group 210.png" alt="Share" className="w-[30px] h-[30px]" />
-                  </button>
-                  <button className="pt-2 rounded-full hover:bg-gray-100">
-                    <img src="/Group 211.png" alt="Share" className="w-[30px] h-[30px]" />
-                  </button>
-                  <button className="pt-2 rounded-full hover:bg-gray-100">
-                    <img src="/Group 212.png" alt="Share" className="w-[30px] h-[30px]" />
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        )} */}
+        
         {currentTab === "All Events" && <AllPhotos />}
         {/* All Users Tab Content */}
         {/* Show UsersTable when the "All Users" tab is active */}
