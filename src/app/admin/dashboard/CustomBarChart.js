@@ -14,7 +14,7 @@ const chartData = [
 
 function CustomBarChart() {
   return (
-    <div className="bg-[#ECECEC] p-4 rounded-[20px] shadow-md w-full mt-5 h-[420px]">
+    <div className="bg-[#ECECEC] p-4  rounded-[20px] shadow-md w-full mt-5 h-[420px]">
       <ResponsiveContainer width="100%" height="100%">
         <BarChart data={chartData} margin={{ top: 10, right: 20, left: 20, bottom: 20 }}>
           {/* Y-Axis Grid Lines */}
