@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { X, Upload } from "lucide-react";
 
-const ModalPopup = ({ isOpen, setIsOpen }) => {
+const ModalPopup = ({ isOpen, setIsOpen, onCreateAlbum }) => {
   const [eventName, setEventName] = useState("");
   const [eventDate, setEventDate] = useState("");
   const [department, setDepartment] = useState("");
@@ -30,6 +30,29 @@ const ModalPopup = ({ isOpen, setIsOpen }) => {
     setFile(uploadedFile);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    
+    if (!eventName || !eventDate || !file) {
+      alert("Please fill all fields and upload an image.");
+      return;
+    }
+
+    const newAlbum = {
+      name: eventName,
+      cover: URL.createObjectURL(file), // Use uploaded image as cover
+      images: [], // Empty initially
+    };
+
+    onCreateAlbum(newAlbum); // Pass new album to parent component
+
+    // Clear input fields & close modal
+    setEventName("");
+    setEventDate("");
+    setFile(null);
+    setIsOpen(false);
+  };
+
   // Prevent Modal from Rendering When Closed
   if (!isOpen) return null;
 
@@ -54,7 +77,7 @@ const ModalPopup = ({ isOpen, setIsOpen }) => {
         <h2 className="text-center text-[#170645] text-2xl font-bold mb-6">Create Event</h2>
 
         {/* Form */}
-        <form className="space-y-6 p-10">
+        <form onSubmit={handleSubmit} className="space-y-6 p-10">
           {/* Event Name & Date */}
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex flex-col w-full">
